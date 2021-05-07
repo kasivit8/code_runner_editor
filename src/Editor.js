@@ -23,6 +23,8 @@ require("codemirror/addon/fold/brace-fold");
 require("codemirror/addon/fold/comment-fold");
 require("codemirror/addon/fold/indent-fold");
 require("codemirror/addon/mode/loadmode");
+require("codemirror/addon/display/autorefresh");
+require("codemirror/addon/mode/loadmode");
 
 const { Header, Content} = Layout;
 const { Dragger } = Upload;
@@ -113,12 +115,14 @@ const DEFAULT_CPP_OPTIONS = {
   matchBrackets: true,
   highlightSelectionMatches: true,
   styleActiveLine: true,
+  autoRefresh: true,
   foldGutter: true,
   gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
   cursorScrollMargin: 48,
   lineNumbers: true,
   indentUnit: 2,
   tabSize: 2,
+  viewportMargin: Infinity,
 };
 
 const DEFAULT_PYTHON_OPTIONS = {
@@ -220,6 +224,7 @@ export class Editors extends React.Component {
       console.log('error',e);
     }
   }
+
 
   render() {
     return (
@@ -338,7 +343,7 @@ export class Editors extends React.Component {
           </Menu>
         </Header>
         
-        <Content style={{ textAlign: 'left' }}>
+        <Content style={{ textAlign: 'left'}}>
           <React.Fragment>
             <CodeMirror
               name= {this.state.modeValue}
