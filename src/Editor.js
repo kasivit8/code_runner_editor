@@ -179,6 +179,8 @@ export class Editors extends React.Component {
       themeValue: "default",
       modeValue: "cpp",
       uploadType: "editor",
+      showEditor: false,
+      showUpload: false,
     };
     this.instance = null;
   }
@@ -210,7 +212,20 @@ export class Editors extends React.Component {
     console.log(`Upload type selected: ${value}`);
     try {
       this.setState({ uploadType: value }, () => {
-        console.log(`Upload type selected: ${this.state.uploadType}`);
+        switch (value) {
+          case "editor":
+            this.setState({showEditor: true});
+            this.setState({showUpload: false});
+            break;
+          case "upload_files":
+            this.setState({showEditor: false});
+            this.setState({showUpload: true});
+            break;
+          default:
+            this.setState({showEditor: !this.state.showEditor});
+            this.setState({showUpload: !this.setState.showUpload});
+            break;
+        }
       });
       
     } catch (e) {
@@ -221,8 +236,10 @@ export class Editors extends React.Component {
   selectMode = (value) => {
     console.log(`mode selected: ${value}`);
     try {
-      //set theme option
-      this.setState({ modeValue: value });
+      //set language option
+      this.setState({ modeValue: value }, () => {
+        
+      });
     } catch (e) {
       console.log("error", e);
     }
@@ -361,7 +378,8 @@ export class Editors extends React.Component {
         </Header>
 
         <Content style={{ textAlign: "left" }}>
-          <React.Fragment>
+          {this.state.showEditor && (
+            <React.Fragment>
             <CodeMirror
               name={this.state.modeValue}
               value={this.state.cppValue}
@@ -373,6 +391,8 @@ export class Editors extends React.Component {
               onChange={(editor, metadata, value) => {}}
             />
           </React.Fragment>
+          )}
+          {this.state.showUpload && (
           <Dragger {...Dragger_props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -385,8 +405,9 @@ export class Editors extends React.Component {
               uploading company data or other band files
             </p>
           </Dragger>
+          )}
         </Content>
-        <button onClick={handleClick}>Upload File</button>
+        <button onClick={handleClick}>Upload</button>
       </Layout>
     );
   }
