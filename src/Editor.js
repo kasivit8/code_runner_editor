@@ -26,8 +26,6 @@ require("codemirror/addon/fold/foldgutter.css");
 require("codemirror/addon/fold/brace-fold");
 require("codemirror/addon/fold/comment-fold");
 require("codemirror/addon/fold/indent-fold");
-require("codemirror/addon/mode/loadmode");
-require("codemirror/addon/mode/loadmode");
 
 const { Header, Content } = Layout;
 const { Dragger } = Upload;
@@ -124,12 +122,10 @@ const DEFAULT_CPP_OPTIONS = {
   lineNumbers: true,
   indentUnit: 2,
   tabSize: 2,
-  viewportMargin: Infinity,
 };
 
 const DEFAULT_PYTHON_OPTIONS = {
   mode: "python",
-  theme: "twilight",
   autoCloseBrackets: true,
   matchBrackets: true,
   highlightSelectionMatches: true,
@@ -145,7 +141,6 @@ const DEFAULT_PYTHON_OPTIONS = {
 
 const DEFAULT_JAVA_OPTIONS = {
   mode: "text/x-java",
-  theme: "panda-syntax",
   autoCloseBrackets: true,
   matchBrackets: true,
   highlightSelectionMatches: true,
@@ -179,7 +174,7 @@ export class Editors extends React.Component {
       themeValue: "default",
       modeValue: "cpp",
       uploadType: "editor",
-      showEditor: false,
+      showEditor: true,
       showUpload: false,
     };
     this.instance = null;
@@ -202,10 +197,6 @@ export class Editors extends React.Component {
 
   onChange = (which) => (editor, data, value) => {
     this.setState({ [`${which}Value`]: value });
-    //this.instance.setValue(this.state.pythonValue);
-    //this.instance.setOption();
-    this.instance.setOption("theme", this.state.themeValue);
-    this.instance.refresh();
   };
 
   selectUpload = (value) => {
@@ -238,7 +229,20 @@ export class Editors extends React.Component {
     try {
       //set language option
       this.setState({ modeValue: value }, () => {
-        
+        switch (value) {
+          case "cpp":
+            this.instance.setOption("mode", "text/x-c++src");
+            break;
+          case "java":
+            this.instance.setOption("mode", "text/x-java");
+            break;
+          case "python":
+              this.instance.setOption("mode", "python");
+              break;
+          default:
+            break;
+        }
+        this.instance.setValue(this.state[`${value}Value`]);
       });
     } catch (e) {
       console.log("error", e);
@@ -271,7 +275,7 @@ export class Editors extends React.Component {
           >
             <Menu.Item key="1">
               <Select
-                //defaultValue="editor"
+                defaultValue="editor"
                 placeholder="Select upload type"
                 style={{ width: 180, padding: 10 }}
                 onChange={this.selectUpload}
@@ -382,7 +386,7 @@ export class Editors extends React.Component {
             <React.Fragment>
             <CodeMirror
               name={this.state.modeValue}
-              value={this.state.cppValue}
+              value={this.state[`${this.state.modeValue}Value`]}
               options={this.cppOptions}
               editorDidMount={(editor) => {
                 this.instance = editor;
@@ -407,7 +411,7 @@ export class Editors extends React.Component {
           </Dragger>
           )}
         </Content>
-        <button onClick={handleClick}>Upload</button>
+        <button onClick={handleClick}>Submit</button>
       </Layout>
     );
   }
