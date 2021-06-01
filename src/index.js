@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import LabSelection from './LabSelection'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LabSelection />
   </React.StrictMode>,
   document.getElementById('root')
 );

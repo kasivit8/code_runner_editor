@@ -154,12 +154,14 @@ const DEFAULT_JAVA_OPTIONS = {
 };
 
 //for select option
-function handleChange(value) {
+/* function handleChange(value) {
   console.log(`selected ${value}`);
-}
+} */
+//for searching
 function onSearch(val) {
   console.log("search:", val);
 }
+//for click button
 function handleClick() {
   console.log("Click happened");
 }
