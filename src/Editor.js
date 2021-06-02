@@ -111,7 +111,6 @@ const DEFAULT_JAVA_VALUE = `public class Mediator {
 
 const DEFAULT_CPP_OPTIONS = {
   mode: "text/x-c++src",
-  //theme: "darcula",
   autoCloseBrackets: true,
   matchBrackets: true,
   highlightSelectionMatches: true,

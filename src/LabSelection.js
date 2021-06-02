@@ -4,7 +4,7 @@ import './App.css';
 import ReactMarkdown from "react-markdown";
 import "antd/dist/antd.css";
 import { Layout, Menu, Breadcrumb, Collapse } from 'antd';
-import { AppstoreOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, HomeOutlined } from '@ant-design/icons';
 
 import { Editors } from './Editor';
 
@@ -50,6 +50,10 @@ class LabSelection extends React.Component {
       <div className="App">
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+            <div className="home">
+              <HomeOutlined />
+              Home
+            </div>
             <Menu
               onClick={this.handleClick}
               theme="dark"
@@ -72,11 +76,6 @@ class LabSelection extends React.Component {
           <Layout className="site-layout">
             <Header className="site-layout-background" style={{ padding: 0 }}>Header</Header>
             <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Python</Breadcrumb.Item>
-                <Breadcrumb.Item>Lab1</Breadcrumb.Item>
-                <Breadcrumb.Item>Question1</Breadcrumb.Item>
-              </Breadcrumb>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <Collapse defaultActiveKey={['Markdown','Code']}>
                   <Panel header="Markdown" key="Markdown" style={{textAlign:"left"}}>
@@ -118,4 +117,5 @@ https://github.com/scniro/react-codemirror2/issues/83
 https://github.com/JedWatson/react-codemirror
 https://codemirror.net/doc/manual.html#config
 https://codemirror.net/doc/manual.html#addons
+https://github.com/jsyang666/jsyang-admin/blob/c55a1c977d109f446a78b52120910fe59b82f71d/admin/src/components/PageHeader/breadcrumb.js
 */
